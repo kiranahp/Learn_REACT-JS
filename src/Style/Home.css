@@ -52,7 +52,7 @@ li{
 
 .jumbotron-main{
     height: 515px;
-    background-image: url(./img/img/img-header.png);
+    background-image: url(../img/img/img-header.png);
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;

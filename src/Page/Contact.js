@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './contact.css';
-import './bootstrap.min.css';
+import '../Style/contact.css';
+import '../Style/bootstrap.min.css';
 
 class Contact extends Component {
   render() {
@@ -15,7 +15,7 @@ class Contact extends Component {
                         <table style={{width:"100%", height:"100%", border: "none", margin:"0", padding:"0"}}>
                             <tr>
                                 <td style={{border: "none"}}>
-                                    <img src={require("./img/logo/logo-alterra-academy-plain@2x.png")} alt="" class="center"/>
+                                    <img src={require("../img/logo/logo-alterra-academy-plain@2x.png")} alt="" class="center"/>
                                 </td>
                             </tr>
                         </table>

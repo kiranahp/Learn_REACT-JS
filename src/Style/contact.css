@@ -1,6 +1,6 @@
 .sideView{
     background-repeat: no-repeat, repeat;
-    background: url("./img/img/side-view.jpg") no-repeat center center fixed, #19345E;
+    background: url("../img/img/side-view.jpg") no-repeat center center fixed, #19345E;
     background-blend-mode: luminosity;
     background-size: cover; 
     width:100%;
@@ -21,17 +21,17 @@
 .inputsName{
     height:50px;
     padding-left: 60px !important;
-    background: url("./img/ico/ico-user.png") no-repeat 15px center scroll;
+    background: url("../img/ico/ico-user.png") no-repeat 15px center scroll;
 }
 .inputsEmail{
     height:50px;
     padding-left: 60px !important;
-    background: url("./img/ico/ico-email.png") no-repeat 15px center scroll;
+    background: url("../img/ico/ico-email.png") no-repeat 15px center scroll;
 }
 .inputsPhone{
     height:50px;
     padding-left: 60px !important;
-    background: url("./img/ico/ico-phone.png") no-repeat 18px center scroll;
+    background: url("../img/ico/ico-phone.png") no-repeat 18px center scroll;
 }
 
 .inputsNationality{
