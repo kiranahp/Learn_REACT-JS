@@ -7,9 +7,7 @@ class Gallery extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
         <GalleryContent/>
-        <Footer/>
       </div>
     );
   }

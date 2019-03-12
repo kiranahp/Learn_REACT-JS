@@ -9,6 +9,9 @@ ul{
     float: right;
     padding:30px;
 }
+.geser {
+    float: left;
+}
 .h1editor{
     font-size: 45px;
 }
@@ -27,14 +30,12 @@ ul{
     height: 358px;
 }
 a{
-    color:19345E;
+    color:#19345E;
 }
 a:hover {
     color: orange;
 }
-.currentLink {
-    color: orange;
- }
+
 li{
     display: inline;
     padding: 10px;

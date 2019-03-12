@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../Style/Blog.css';
 import '../Style/bootstrap.min.css';
+import Header from '../components/Header.js';
 import NavbarNews from '../components/NavbarNews.js';
+import Footer from '../components/Footer.js';
 import Search from '../components/SearchBlog.js';
 import PopularNews from '../components/PopularNews.js';
 import BlogContent from '../components/BlogContent';
@@ -11,55 +13,38 @@ import az from '../img/ico/ico-gallery.png';
 const apiKey = "7bd9771f997e43a4880691db83cb5221";
 const baseUrl = "https://newsapi.org/";
 const urlHeadline = "https://newsapi.org/v2/top-headlines?country=id&apiKey=7bd9771f997e43a4880691db83cb5221"
-const urlEverything = 'https://newsapi.org/v2/everything?q=id&apiKey=7bd9771f997e43a4880691db83cb5221'
+const urlEverything = 'https://newsapi.org/v2/everything?q=olahraga&apiKey=7bd9771f997e43a4880691db83cb5221'
 
-class Blog extends Component {
+class Olahraga extends Component {
     constructor(props){
         super(props);
         this.state = {
             popularNews:[],
-            newsContent:[],
-            searchText : ""
-        },
-        this.handleChange = this.handleChange.bind(this);
-        this.doSearch = this.doSearch.bind(this);
-    }
-
-    componentDidMount(){
-        let self = this;
-        axios.get(urlHeadline).then(function(response){
-            self.setState({popularNews : response.data.articles});
-            //console.log(response.data);
-        }).catch(function(error){
-            console.log(error);
-        });
-    
-        axios.get(urlEverything).then(function(response){
-            self.setState({newsContent : response.data.articles});
-            //console.log(response.data);
-        }).catch(function(error){
-            console.log(error);
-        });
-            
-      }
-      
-      handleChange(e){
-        this.doSearch(e.target.value);
-      }
-    
-      doSearch(keyword){
-        let self = this;
-        let urlSearch = baseUrl + "everything?q="+ keyword + "&apiKey=" + apiKey;
-        if(keyword.length > 2){
-            axios.get(urlSearch).then(function(response){
-                self.setState({listNews : response.data.articles});
-            }).catch(function(error){
-                console.log(error);
-            });
+            newsContent:[]
         }
-        
     }
 
+    componentDidMount = () => {
+        const self = this;
+        axios
+        .get(urlHeadline)
+        .then(function(response){
+            self.setState({popularNews: response.data.articles});
+            console.log(response);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+        axios
+        .get(urlEverything)
+        .then(function(response){
+            self.setState({newsContent: response.data.articles});
+            console.log(response);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+    }
     render() {
         // console.log("here")
         // // const {popularNews} = this state;
@@ -68,13 +53,12 @@ class Blog extends Component {
             <div className='App'>
                 <NavbarNews/>
                 <br/>
-                <h1 style= {{textAlign: 'center', marginTop: '30px'}}>Alterra News</h1>
+                <h1 style= {{textAlign: 'center', marginTop: '30px'}}>OLAHRAGA</h1>
                 <br/>
                 <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                    <Search handleChange={this.handleChange}/>
-                    <br/><br/>
+                        <Search/><br/><br/>
                         {this.state.popularNews.slice(0,5).map((item, key) => {
                         const title = item.title !== null ? item.title : "";
                         return <PopularNews key={key} title={title}/>;
@@ -96,4 +80,4 @@ class Blog extends Component {
     }
 }
 
-export default Blog;
+export default Olahraga;

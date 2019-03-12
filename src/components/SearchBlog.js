@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import '../Style/Blog.css';
 import '../Style/bootstrap.min.css';
 
@@ -11,7 +12,7 @@ class Search extends Component {
                 <div class="well">
                     <h5><i class="fa fa-search"></i> News Search</h5>
                     <div class="input-group">
-                        <input type="text" class="form-control"/>
+                    <input value={this.props.keyword} onChange={this.props.doSearch} type="text" placeholder="Search Here" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <i class="fa fa-search"></i>
@@ -24,5 +25,10 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  title: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+};
 
 export default Search;
