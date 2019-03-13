@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Style/contact.css';
 import '../Style/bootstrap.min.css';
-import Header from '../components/Header';
+// import Header from '../components/Header';
 
 class Contact extends Component {
   render() {

@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../Style/Blog.css';
 import '../Style/bootstrap.min.css';
-import Header from '../components/Header.js';
 import NavbarNews from '../components/NavbarNews.js';
-import Footer from '../components/Footer.js';
 import Search from '../components/SearchBlog.js';
 import PopularNews from '../components/PopularNews.js';
 import BlogContent from '../components/BlogContent';
 import az from '../img/ico/ico-gallery.png';
 
 const apiKey = "7bd9771f997e43a4880691db83cb5221";
-const baseUrl = "https://newsapi.org/";
+const baseUrl = "https://newsapi.org/v2/";
 const urlHeadline = "https://newsapi.org/v2/top-headlines?country=id&apiKey=7bd9771f997e43a4880691db83cb5221"
 const urlEverything = 'https://newsapi.org/v2/everything?q=hiburan&apiKey=7bd9771f997e43a4880691db83cb5221'
 
@@ -20,46 +18,64 @@ class Hiburan extends Component {
         super(props);
         this.state = {
             popularNews:[],
-            newsContent:[]
-        }
+            newsContent:[],
+            searchText : ""
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.doSearch = this.doSearch.bind(this);
     }
 
-    componentDidMount = () => {
-        const self = this;
-        axios
-        .get(urlHeadline)
-        .then(function(response){
-            self.setState({popularNews: response.data.articles});
-            console.log(response);
-        })
-        .catch(function(error){
+    componentDidMount(){
+        let self = this;
+        axios.get(urlHeadline).then(function(response){
+            self.setState({popularNews : response.data.articles});
+            //console.log(response.data);
+        }).catch(function(error){
             console.log(error);
         });
-        axios
-        .get(urlEverything)
-        .then(function(response){
-            self.setState({newsContent: response.data.articles});
-            console.log(response);
-        })
-        .catch(function(error){
+    
+        axios.get(urlEverything).then(function(response){
+            self.setState({newsContent : response.data.articles});
+            //console.log(response.data);
+        }).catch(function(error){
             console.log(error);
         });
+            
+      }
+      
+      handleChange(e){
+        this.doSearch(e.target.value);
+      }
+    
+      doSearch(keyword){
+        let self = this;
+        let urlSearch = baseUrl + "everything?q="+ keyword + "&apiKey=" + apiKey;
+        // console.log("testing do search", urlSearch)
+        if(keyword.length > 2){
+            axios.get(urlSearch).then(function(response){
+                self.setState({newsContent : response.data.articles});
+                // console.log('test response', response)
+            }).catch(function(error){
+                console.log(error);
+            });
+        }
+        
     }
+
     render() {
         // console.log("here")
-        // // const {popularNews} = this state;
-        // // const {newsContent} = this state;
+        // // const {popularNews, newsContent} = this.state;
         return (
             <div className='App'>
-                <Header/>
                 <NavbarNews/>
                 <br/>
-                <h1 style= {{textAlign: 'center', marginTop: '30px'}}>HIBURAN</h1>
+                <h1 style= {{textAlign: 'center', marginTop: '30px'}}>Alterra News</h1>
                 <br/>
                 <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <Search/><br/><br/>
+                    <Search handleChange={this.handleChange}/>
+                    <br/><br/>
                         {this.state.popularNews.slice(0,5).map((item, key) => {
                         const title = item.title !== null ? item.title : "";
                         return <PopularNews key={key} title={title}/>;
@@ -76,7 +92,6 @@ class Hiburan extends Component {
                     </div>
                 </div>
         </div>
-                <Footer/>
             </div>
         )
     }

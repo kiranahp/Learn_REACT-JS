@@ -9,7 +9,7 @@ import BlogContent from '../components/BlogContent';
 import az from '../img/ico/ico-gallery.png';
 
 const apiKey = "7bd9771f997e43a4880691db83cb5221";
-const baseUrl = "https://newsapi.org/";
+const baseUrl = "https://newsapi.org/v2/";
 const urlHeadline = "https://newsapi.org/v2/top-headlines?country=id&apiKey=7bd9771f997e43a4880691db83cb5221"
 const urlEverything = 'https://newsapi.org/v2/everything?q=id&apiKey=7bd9771f997e43a4880691db83cb5221'
 
@@ -20,7 +20,7 @@ class Blog extends Component {
             popularNews:[],
             newsContent:[],
             searchText : ""
-        },
+        };
         this.handleChange = this.handleChange.bind(this);
         this.doSearch = this.doSearch.bind(this);
     }
@@ -50,9 +50,11 @@ class Blog extends Component {
       doSearch(keyword){
         let self = this;
         let urlSearch = baseUrl + "everything?q="+ keyword + "&apiKey=" + apiKey;
+        // console.log("testing do search", urlSearch)
         if(keyword.length > 2){
             axios.get(urlSearch).then(function(response){
-                self.setState({listNews : response.data.articles});
+                self.setState({newsContent : response.data.articles});
+                // console.log('test response', response)
             }).catch(function(error){
                 console.log(error);
             });
@@ -62,8 +64,7 @@ class Blog extends Component {
 
     render() {
         // console.log("here")
-        // // const {popularNews} = this state;
-        // // const {newsContent} = this state;
+        // // const {popularNews, newsContent} = this.state;
         return (
             <div className='App'>
                 <NavbarNews/>
