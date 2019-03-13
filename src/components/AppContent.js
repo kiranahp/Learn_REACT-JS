@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../Style/Home.css';
 import '../Style/bootstrap.min.css';
-import logo from '../img/logo/logo-alterra-academy.png';
 
 class AppContent extends Component {
   render() {

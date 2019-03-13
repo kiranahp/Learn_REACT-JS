@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import MainRoute from './Routes/MainRoute';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'unistore/react';
+import { actions } from './Store'
 
 //App styles
 import './Style/Home.css';
@@ -17,7 +19,7 @@ class AppAjax extends Component {
     render() {
         return (
             <div className='App'>
-                <Header postSignout={this.postSignout} />
+                <Header postSignout={this.props.postSignout} />
                 <MainRoute />
                 <Footer/>
             </div>
@@ -25,4 +27,7 @@ class AppAjax extends Component {
     }
 }
 
-export default withRouter(AppAjax);
+export default connect(
+    "is_login, postSignout", actions)
+(withRouter(AppAjax));
+// export default withRouter(AppAjax);

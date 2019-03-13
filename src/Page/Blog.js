@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'unistore/react';
+import { actions } from '../Store';
+import { withRouter } from 'react-router-dom';
 import '../Style/Blog.css';
 import '../Style/bootstrap.min.css';
 import NavbarNews from '../components/NavbarNews.js';
@@ -17,50 +20,21 @@ class Blog extends Component {
     constructor(props){
         super(props);
         this.state = {
-            popularNews:[],
-            newsContent:[],
             searchText : ""
         };
         this.handleChange = this.handleChange.bind(this);
-        this.doSearch = this.doSearch.bind(this);
+        // this.doSearch = this.doSearch.bind(this);
     }
 
     componentDidMount(){
         let self = this;
-        axios.get(urlHeadline).then(function(response){
-            self.setState({popularNews : response.data.articles});
-            //console.log(response.data);
-        }).catch(function(error){
-            console.log(error);
-        });
-    
-        axios.get(urlEverything).then(function(response){
-            self.setState({newsContent : response.data.articles});
-            //console.log(response.data);
-        }).catch(function(error){
-            console.log(error);
-        });
-            
+        this.props.pOpular()
+        this.props.neWs()           
       }
       
       handleChange(e){
-        this.doSearch(e.target.value);
+        this.props.doSearch(e.target.value);
       }
-    
-      doSearch(keyword){
-        let self = this;
-        let urlSearch = baseUrl + "everything?q="+ keyword + "&apiKey=" + apiKey;
-        // console.log("testing do search", urlSearch)
-        if(keyword.length > 2){
-            axios.get(urlSearch).then(function(response){
-                self.setState({newsContent : response.data.articles});
-                // console.log('test response', response)
-            }).catch(function(error){
-                console.log(error);
-            });
-        }
-        
-    }
 
     render() {
         // console.log("here")
@@ -76,13 +50,13 @@ class Blog extends Component {
                     <div class="col-md-4">
                     <Search handleChange={this.handleChange}/>
                     <br/><br/>
-                        {this.state.popularNews.slice(0,5).map((item, key) => {
+                        {this.props.popularNews.slice(0,5).map((item, key) => {
                         const title = item.title !== null ? item.title : "";
                         return <PopularNews key={key} title={title}/>;
                         })}
                     </div>
                     <div class="col-md-8">
-                        {this.state.newsContent.slice(0,5).map((item, key) => {
+                        {this.props.newsContent.slice(0,5).map((item, key) => {
                         const src_img = item.urlToImage === null ? az : item.urlToImage;
                         const content = item.content !== null ? item.content: "Tidak Punya Content";
                         const title = item.title !== null ? item.title : "Tidak ada judul";
@@ -97,4 +71,8 @@ class Blog extends Component {
     }
 }
 
-export default Blog;
+export default connect(
+    "popularNews, newsContent", actions)
+(withRouter(Blog));
+
+// export default Blog;

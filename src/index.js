@@ -12,6 +12,9 @@ import AppRouter from './AppRouter'
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 
+import { Provider } from 'unistore/react';
+import {store} from './Store';
+
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 // ReactDOM.render(<Home />, document.getElementById('root'));
@@ -22,9 +25,11 @@ import {BrowserRouter} from 'react-router-dom';
 const rootEl = document.getElementById('root');
 const render = Component =>
     ReactDOM.render(
-        <BrowserRouter>
-            <Component/>
-        </BrowserRouter>,
+        <Provider store={store}>
+            <BrowserRouter>
+                <Component/>
+            </BrowserRouter>
+        </Provider>, 
         rootEl
     );
 
